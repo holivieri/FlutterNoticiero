@@ -13,6 +13,13 @@ final _COUNTRY = 'ar';
 class NewsService with ChangeNotifier {
 
   List<Article> headlines = [];
+  List<Article> headlinesCanada = [];
+
+  String _selectedCategory = 'business';
+
+  Map<String, List<Article>> categoryArticles = {};
+
+
   List<Category> categories =[
     Category(FontAwesomeIcons.building, 'business'),
     Category(FontAwesomeIcons.tv, 'entertainment'),
@@ -26,7 +33,21 @@ class NewsService with ChangeNotifier {
 
   NewsService() {
     this.getTopHeadlines();
+    this.getTopHeadlinesCanada();
+    
+    categories.forEach((item){
+      this.categoryArticles[item.name] = new List();
+    });
   }
+
+  get selectedCategory => _selectedCategory;
+
+  set selectedCategory(String value){
+    _selectedCategory = value;
+    getArticlesByCategory(value);
+    notifyListeners();
+  }
+
 
   getTopHeadlines() async {
     
@@ -41,4 +62,37 @@ class NewsService with ChangeNotifier {
 
   }
 
+  getTopHeadlinesCanada() async {
+    
+    final url = '$_URL_NEWS/top-headlines?apiKey=$_API_KEY&country=ca';
+    final resp = await  http.get(url);
+
+    final newsResponse = newsResponseFromJson(resp.body);
+
+    this.headlinesCanada.addAll(newsResponse.articles);
+    notifyListeners();
+
+
+  }
+  
+
+  List<Article> get getArticlesbySelectedCategory => this.categoryArticles[this.selectedCategory]; 
+
+  getArticlesByCategory(String category) async {
+    
+    if ( categoryArticles[category].length > 0 ){
+      return categoryArticles[category];
+    }
+
+    final url = '$_URL_NEWS/top-headlines?apiKey=$_API_KEY&country=$_COUNTRY&category=$category';
+    final resp = await  http.get(url);
+
+    final newsResponse = newsResponseFromJson(resp.body);
+
+    this.categoryArticles[category].addAll(newsResponse.articles);
+
+    
+   notifyListeners();
+
+  }
 }

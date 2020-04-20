@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:noticiero/src/pages/tab1_page.dart';
 import 'package:noticiero/src/pages/tab2_page.dart';
+import 'package:noticiero/src/pages/tab3_page.dart';
 import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TabsPage extends StatelessWidget {
 
@@ -29,8 +31,9 @@ class _Navegacion extends StatelessWidget {
                             currentIndex: navegacionModel.paginaActual,
                             onTap: (i) => navegacionModel.paginaActual = i,
                             items: [
-                                  BottomNavigationBarItem(icon: Icon(Icons.account_balance), title: Text('Para ti')),
-                                  BottomNavigationBarItem(icon: Icon(Icons.public), title: Text('Encabezados'))
+                                  BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.solidFlag), title: Text('Argentina')),
+                                  BottomNavigationBarItem(icon: Icon(Icons.public), title: Text('Categorias')),
+                                  BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.canadianMapleLeaf), title: Text('Canada')),
                                   ]
                             );
   }
@@ -50,6 +53,7 @@ class _Paginas extends StatelessWidget {
             children: <Widget>[
                 Tab1Page(),
                 Tabs2Page(),
+                Tab3Page(),
             ],
             );
   }
