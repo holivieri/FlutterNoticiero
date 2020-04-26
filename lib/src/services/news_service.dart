@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 
 
 
-final _URL_NEWS = 'https://newsapi.org/v2';
-final _API_KEY = '694aa29d7aa845c39eb804668a4c9858';
-final _COUNTRY = 'ar';
+final _urlnews = 'https://newsapi.org/v2';
+final _apikey = '694aa29d7aa845c39eb804668a4c9858';
+final _country = 'ar';
 
 class NewsService with ChangeNotifier {
 
@@ -51,7 +51,7 @@ class NewsService with ChangeNotifier {
 
   getTopHeadlines() async {
     
-    final url = '$_URL_NEWS/top-headlines?apiKey=$_API_KEY&country=$_COUNTRY';
+    final url = '$_urlnews/top-headlines?apiKey=$_apikey&country=$_country';
     final resp = await  http.get(url);
 
     final newsResponse = newsResponseFromJson(resp.body);
@@ -64,7 +64,7 @@ class NewsService with ChangeNotifier {
 
   getTopHeadlinesCanada() async {
     
-    final url = '$_URL_NEWS/top-headlines?apiKey=$_API_KEY&country=ca';
+    final url = '$_urlnews/top-headlines?apiKey=$_apikey&country=ca';
     final resp = await  http.get(url);
 
     final newsResponse = newsResponseFromJson(resp.body);
@@ -84,7 +84,7 @@ class NewsService with ChangeNotifier {
       return categoryArticles[category];
     }
 
-    final url = '$_URL_NEWS/top-headlines?apiKey=$_API_KEY&country=$_COUNTRY&category=$category';
+    final url = '$_urlnews/top-headlines?apiKey=$_apikey&country=$_country&category=$category';
     final resp = await  http.get(url);
 
     final newsResponse = newsResponseFromJson(resp.body);
