@@ -1,4 +1,4 @@
-package com.hernanolivieri.noticias
+package com.hernanolivieri.noticiero
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
